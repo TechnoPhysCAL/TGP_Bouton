@@ -124,6 +124,10 @@ void Bouton::setReboundDelay(unsigned long delay)
 {
 	_delayRebound = delay;
 }
+unsigned long Bouton::getReboundDelay()
+{
+	return _delayRebound;
+}
 
 //*********************************************************************
 //Routine pour ajuster l'intervalle de temps pour considerer un clic
@@ -133,6 +137,10 @@ void Bouton::setLongPressDelay(unsigned long delay)
 {
 	_dureeLongClic = delay;
 }
+unsigned long Bouton::getLongPressDelay()
+{
+	return _dureeLongClic;
+}
 
 //*********************************************************************
 //Routine pour ajuster l'intervalle de temps entre chaque répétition
@@ -141,4 +149,8 @@ void Bouton::setLongPressDelay(unsigned long delay)
 void Bouton::setLongPressInterval(unsigned long interval)
 {
 	_dureeRepetition = interval;
+}
+unsigned long Bouton::getLongPressInterval()
+{
+	return _dureeRepetition;
 }

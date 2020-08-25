@@ -26,8 +26,12 @@ class Bouton
 	bool iSOnLongPress();
 
 	void setReboundDelay(unsigned long);
+	unsigned long getReboundDelay();
 	void setLongPressDelay(unsigned long);
+	unsigned long getLongPressDelay();
 	void setLongPressInterval(unsigned long);
+	unsigned long getLongPressInterval();
+
 
   protected:
 	void forward();

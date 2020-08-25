@@ -17,15 +17,11 @@ isPressed	KEYWORD2
 isReleased	KEYWORD2
 isLongPressed	KEYWORD2
 setReboundDelay	KEYWORD2
+getReboundDelay	KEYWORD2
 setLongPressDelay	KEYWORD2
+getLongPressDelay	KEYWORD2
 setLongPressInterval	KEYWORD2
-
+getLongPressInterval	KEYWORD2
 ######################################
 # Constants (LITERAL1)
 #######################################
-RELACHE	LITERAL1
-RELACHANT	LITERAL1
-ENFONCE	LITERAL1
-ENFONCANT	LITERAL1
-MAINTENU	LITERAL1
-MAINTENANT	LITERAL1
