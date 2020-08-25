@@ -16,6 +16,12 @@ refresh	KEYWORD2
 isPressed	KEYWORD2
 isReleased	KEYWORD2
 isLongPressed	KEYWORD2
+<<<<<<< HEAD:TGP_Bouton/keywords.txt
+=======
+setReboundDelay	KEYWORD2
+setLongPressDelay	KEYWORD2
+setLongPressInterval	KEYWORD2
+>>>>>>> 8c521405901a0ccd921a476f90bd7ff61626116b:Bouton/keywords.txt
 
 isOnPress	KEYWORD2
 isOnRelease	KEYWORD2
