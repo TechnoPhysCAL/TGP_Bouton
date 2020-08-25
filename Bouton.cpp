@@ -5,10 +5,9 @@ Bouton::Bouton()
 	_lastEtat = RELACHE;
 	_keyRegister = 0;
 
-	_delayRebound = 5;
-
-	_dureeLongClic = 2000;
-	_dureeRepetition = 200;
+	_delayDebounce = DEFAULT_DEBOUNCE_DELAY;
+	_dureeLongClic = DEFAULT_lONG_PRESS_DELAY;
+	_dureeRepetition = DEFAULT_lONG_PRESS_INTERVAL;
 }
 
 void Bouton::refresh()
@@ -16,7 +15,7 @@ void Bouton::refresh()
 
 	unsigned long _actualSample = millis();
 
-	if (_actualSample - _lastSample > _delayRebound)
+	if (_actualSample - _lastSample > _delayDebounce)
 	{ //Si temps d'echantillonnage atteint
 		_lastSample = _actualSample;
 
@@ -41,15 +40,15 @@ bool Bouton::isLongPressed()
 
 bool Bouton::isOnPress()
 {
-	return (_lastEtat == ENFONCE);
+	return (_lastEtat == ENFONCE || _lastEtat == ENFONCANT);
 }
 bool Bouton::isOnRelease()
 {
-	return (_lastEtat == RELACHE);
+	return (_lastEtat == RELACHE || _lastEtat == RELACHANT);
 }
-bool Bouton::iSOnLongPress()
+bool Bouton::isOnLongPress()
 {
-	return (_lastEtat == MAINTENU);
+	return (_lastEtat == MAINTENU || _lastEtat == MAINTENANT);
 }
 
 int Bouton::changeEtat(unsigned long cur_time)
@@ -120,13 +119,13 @@ void Bouton::up()
 //Routine pour ajuster l'intervalle de temps pour ajouter les valeurs
 //du bouton lu dans le registre à décalage.
 //*********************************************************************
-void Bouton::setReboundDelay(unsigned long delay)
+void Bouton::setDebounceDelay(unsigned long delay)
 {
-	_delayRebound = delay;
+	_delayDebounce = delay;
 }
-unsigned long Bouton::getReboundDelay()
+unsigned long Bouton::getDebounceDelay()
 {
-	return _delayRebound;
+	return _delayDebounce;
 }
 
 //*********************************************************************

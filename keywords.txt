@@ -16,10 +16,17 @@ refresh	KEYWORD2
 isPressed	KEYWORD2
 isReleased	KEYWORD2
 isLongPressed	KEYWORD2
-setReboundDelay	KEYWORD2
-getReboundDelay	KEYWORD2
+
+isOnPress	KEYWORD2
+isOnRelease	KEYWORD2
+isOnLongPress	KEYWORD2
+
+setDebounceDelay	KEYWORD2
+getDebounceDelay	KEYWORD2
+
 setLongPressDelay	KEYWORD2
 getLongPressDelay	KEYWORD2
+
 setLongPressInterval	KEYWORD2
 getLongPressInterval	KEYWORD2
 ######################################

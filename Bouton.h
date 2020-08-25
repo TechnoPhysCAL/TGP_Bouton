@@ -1,6 +1,12 @@
 #ifndef Bouton_h
 #define Bouton_h
 
+
+#define DEFAULT_DEBOUNCE_DELAY 5
+
+#define DEFAULT_lONG_PRESS_DELAY 2000
+#define DEFAULT_lONG_PRESS_INTERVAL 200
+
 #define RELACHE 0
 #define RELACHANT 1
 #define ENFONCE 2
@@ -23,10 +29,10 @@ class Bouton
 
 	bool isOnPress();
 	bool isOnRelease();
-	bool iSOnLongPress();
+	bool isOnLongPress();
 
-	void setReboundDelay(unsigned long);
-	unsigned long getReboundDelay();
+	void setDebounceDelay(unsigned long);
+	unsigned long getDebounceDelay();
 	void setLongPressDelay(unsigned long);
 	unsigned long getLongPressDelay();
 	void setLongPressInterval(unsigned long);
@@ -47,7 +53,7 @@ class Bouton
 
 	unsigned long _lastSample;
 
-	unsigned long _delayRebound;
+	unsigned long _delayDebounce;
 	unsigned long _dureeLongClic;
 	unsigned long _dureeRepetition;
 
