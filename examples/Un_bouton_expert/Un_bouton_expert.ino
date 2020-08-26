@@ -7,11 +7,11 @@
 
 */
 
-#include <BoutonPin.h> //Pour utiliser la librairie BoutonPin
+#include <Bouton.h> //Pour utiliser la librairie Bouton
 
 const int pin = 34; //Le numéro du port sur lequel est lu le bouton
 
-BoutonPin monBouton(pin); // Initialisation du bouton sur le port choisi
+Bouton monBouton(pin); // Initialisation du bouton sur le port choisi
 
 void setup()
 {
