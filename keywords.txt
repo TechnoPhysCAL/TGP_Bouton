@@ -1,5 +1,5 @@
 #######################################
-# Syntax Coloring Map for Clavier
+# Syntax Coloring Map for TGP Bouton
 #######################################
 
 #######################################
@@ -13,6 +13,7 @@ BoutonPin	KEYWORD1
 #######################################
 
 refresh	KEYWORD2
+
 isPressed	KEYWORD2
 isReleased	KEYWORD2
 isLongPressed	KEYWORD2
