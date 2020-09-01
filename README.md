@@ -40,6 +40,15 @@ void loop() {
 }
 ```
 
+## Constructeurs
+```cpp
+Bouton(int pin)
+Bouton(int pin, int front,int pinMode); 
+```
+On spécifie le numéro de la broche sur lequel est branché le bouton. On peut spécifier également le sens du front (LOW ou HIGH) et le mode de la broche (OUTPUT ou INPUT).
+
+
+
 ## Méthodes disponibles
 
 ```cpp
