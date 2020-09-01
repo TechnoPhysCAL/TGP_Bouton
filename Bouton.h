@@ -14,7 +14,7 @@ class Bouton : public BoutonBase
 {
   public:
    Bouton(int address);
-   Bouton(int address,int front,int pinMode);
+   Bouton(int address,bool rising,bool pullup);
 	
   protected:
    bool isDetected();

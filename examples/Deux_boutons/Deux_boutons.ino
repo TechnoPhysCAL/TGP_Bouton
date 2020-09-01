@@ -9,8 +9,8 @@
 
 #include <Bouton.h>  //Pour utiliser la librairie Bouton
 
-const int pinA = 34; //Le numéro du port sur lequel est lu le bouton A
-const int pinB = 35; //Le numéro du port sur lequel est lu le bouton B
+const int pinA = 34; //Le numéro de la broche sur laquelle est lu le bouton A
+const int pinB = 35; //Le numéro de la broche sur laquelle est lu le bouton B
 
 Bouton boutonA(pinA); // Initialisation du bouton A sur le port choisi
 Bouton boutonB(pinB); // Initialisation du bouton B sur le port choisi

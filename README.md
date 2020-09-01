@@ -43,9 +43,9 @@ void loop() {
 ## Constructeurs
 ```cpp
 Bouton(int pin)
-Bouton(int pin, int front,int pinMode); 
+Bouton(int pin, bool useRising,bool usePullup); 
 ```
-On spécifie le numéro de la broche sur lequel est branché le bouton. On peut spécifier également le sens du front (LOW ou HIGH) et le mode de la broche (OUTPUT ou INPUT).
+On spécifie le numéro de la broche sur lequel est branché le bouton. On peut spécifier également si c'est le front montant (true) ou descendant (false) qui est considéré comme appuyé,  et l'utilisation ou non de la résistance pullup interne.
 
 
 
