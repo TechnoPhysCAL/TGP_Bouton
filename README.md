@@ -1,4 +1,4 @@
-# Librairie TGL Bouton
+# Librairie TGP Bouton
 
 Permet la création de boutons et leur "debouncing". Permet de détecter si le bouton a été appuyé, maintenu appuyé ou relâché.
 
@@ -43,7 +43,7 @@ void loop() {
 ## Constructeurs
 ```cpp
 Bouton(int pin)
-Bouton(int pin, bool useRising,bool usePullup); 
+Bouton(int pin, bool useRising, bool usePullup); 
 ```
 On spécifie le numéro de la broche sur lequel est branché le bouton. On peut spécifier également si c'est le front montant (true) ou descendant (false) qui est considéré comme appuyé,  et l'utilisation ou non de la résistance pullup interne.
 
