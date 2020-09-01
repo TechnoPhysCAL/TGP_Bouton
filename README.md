@@ -90,20 +90,20 @@ Permet de connaître l'état du bouton; contrairement aux méthodes précédente
 void setDebounceDelay(unsigned long)
 unsigned long getDebounceDelay()
 ```
-Permet de lire et écrire le temps de "debouncing" en millisecondes pour s'assurer de l'effet de rebond d'un bouton mécanique et éviter les 'faux positifs'. Valeur par défaut : 5 ms.
+Permet de lire et modifier le temps de "debouncing" en millisecondes pour s'assurer de l'effet de rebond d'un bouton mécanique et éviter les 'faux positifs'. Valeur par défaut : 5 ms.
 
 ---
 ```cpp
 void setLongPressDelay(unsigned long);
 unsigned long getLongPressDelay();
 ```
-Permet de lire et écrire le temps en millisecondes nécessaire pour que le bouton soit considéré comme 'maintenu longtemps'. Valeur par défaut : 1500 ms.
+Permet de lire et modifier le temps en millisecondes nécessaire pour que le bouton soit considéré comme 'maintenu longtemps'. Valeur par défaut : 1500 ms.
 
 ---
 ```cpp
 	void setLongPressInterval(unsigned long);
 	unsigned long getLongPressInterval();
 ```
-Permet de lire et écrire le temps en millisecondes entre chaque valeur vraie de la méthode  'isLongPressed()'. Valeur par défaut : 200 ms.
+Permet de lire et modifier le temps en millisecondes entre chaque valeur vraie de la méthode  'isLongPressed()'. Valeur par défaut : 200 ms.
 
 ---
