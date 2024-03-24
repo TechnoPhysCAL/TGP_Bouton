@@ -5,18 +5,17 @@
 
 class Bouton : public BoutonBase
 {
-  public:
-   Bouton(int address);
-   Bouton(int address,bool rising,bool pullup);
-	
-  protected:
-   bool isDetected();
-	
-  private:
-    int _address;
-  	int _front;
-  
+public:
+  Bouton();
+  Bouton(int address);
+  Bouton(int address, bool rising, bool pullup);
+ bool _nextValue;
+protected:
+  bool isDetected();
 
-  	
+private:
+  int _address;
+  int _front;
+ 
 };
 #endif
