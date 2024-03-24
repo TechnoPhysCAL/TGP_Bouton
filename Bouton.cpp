@@ -17,7 +17,8 @@ Bouton::Bouton(int address, bool rising, bool pullup)
 {
 	_address = address;
 	_front = rising ? LOW : HIGH;
-	_nextValue = false pinMode(_address, pullup ? INPUT_PULLUP : INPUT);
+	_nextValue = false;
+	pinMode(_address, pullup ? INPUT_PULLUP : INPUT);
 }
 bool Bouton::isDetected()
 {
