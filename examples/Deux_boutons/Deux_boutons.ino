@@ -7,13 +7,15 @@
 
 */
 
-#include <Bouton.h>  //Pour utiliser la librairie Bouton
 
-const int pinA = 34; //Le numéro de la broche sur laquelle est lu le bouton A
-const int pinB = 35; //Le numéro de la broche sur laquelle est lu le bouton B
 
-Bouton boutonA(pinA); // Initialisation du bouton A sur le port choisi
-Bouton boutonB(pinB); // Initialisation du bouton B sur le port choisi
+#define PIN_BOUTON_A 34 //Le numéro de la broche sur laquelle est lu le bouton
+#define PIN_BOUTON_B 35 //Le numéro de la broche sur laquelle est lu le bouton
+
+#include <BoutonPin.h>  //Pour utiliser la librairie Bouton
+
+BoutonPin boutonA(PIN_BOUTON_A); // Initialisation du bouton A sur le port choisi
+BoutonPin boutonB(PIN_BOUTON_B); // Initialisation du bouton B sur le port choisi
 
 void setup() {
   Serial.begin(115200); // Pour l'exemple, le port Série sera utilisé pour observer le comportemement du bouton.
