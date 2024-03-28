@@ -18,14 +18,14 @@ void setup() {
   Serial.begin(115200);  // Pour l'exemple, le port Série sera utilisé pour observer le comportemement du bouton.
 
   //On peut fournir une référence à la fonction à apppler selon les trois événements possibles.
-  monBouton.setPressedEvent(&routineQuandAppuye);
-  monBouton.setLongPressedEvent(&routineQuandAppuyeLonguement);
-  monBouton.setReleasedEvent(&routineQuandRelache);
+  monBouton.setOnPressed(&routineQuandAppuye);
+  monBouton.setOnLongPressed(&routineQuandAppuyeLonguement);
+  monBouton.setOnReleased(&routineQuandRelache);
 
   //On peut aussi simplifier l'écriture avec une fonction anonyme :
-  //monBouton.setPressedEvent([](){Serial.println("Le bouton a été appuyé.");});
-  //monBouton.setLongPressedEvent([](){Serial.println("Le bouton a été appuyé longement.");});
-  //monBouton.setReleasedEvent([](){Serial.println("Le bouton a été relâché.");});
+  //monBouton.setOnPressed([](){Serial.println("Le bouton a été appuyé.");});
+  //monBouton.setOnLongPressed([](){Serial.println("Le bouton a été appuyé longement.");});
+  //monBouton.setOnReleased([](){Serial.println("Le bouton a été relâché.");});
 }
 
 void loop() {

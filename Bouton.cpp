@@ -25,15 +25,15 @@ void Bouton::setValueGetter(BooleanGetter func)
 	_valueGetter = func;
 }
 
-void Bouton::setPressedEvent(Callback func)
+void Bouton::setOnPressed(Callback func)
 {
 	_whenPressed = func;
 }
-void Bouton::setLongPressedEvent(Callback func)
+void Bouton::setOnLongPressed(Callback func)
 {
 	_whenLongPressed = func;
 }
-void Bouton::setReleasedEvent(Callback func)
+void Bouton::setOnReleased(Callback func)
 {
 	_whenReleased = func;
 }

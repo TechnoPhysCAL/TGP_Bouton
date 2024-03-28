@@ -42,9 +42,9 @@ public:
 	void setLongPressInterval(unsigned long);
 	unsigned long getLongPressInterval();
 
-	void setPressedEvent(std::function<void()> func);
-	void setLongPressedEvent(std::function<void()> func);
-	void setReleasedEvent(std::function<void()> func);
+	void setOnPressed(std::function<void()> func);
+	void setOnLongPressed(std::function<void()> func);
+	void setOnReleased(std::function<void()> func);
 
 protected:
 	void forward(bool);
