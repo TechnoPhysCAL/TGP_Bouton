@@ -7,7 +7,7 @@ BoutonPin::BoutonPin(int address, bool rising, bool pullup) : Bouton()
 	pinMode(_address, pullup ? INPUT_PULLUP : INPUT);
 }
 
-void BoutonPin::rafraichir()
+void BoutonPin::refresh()
 {
 	auto booleanGetter = [&]()->bool
 	{ return digitalRead(_address) == _front; };

@@ -107,7 +107,7 @@ void Bouton::forward(bool newValue)
 	{
 		_keyRegister++;
 	}
-	else if (!newValue  && (_keyRegister > 0))
+	else if (!newValue && (_keyRegister > 0))
 	{
 		_keyRegister--;
 	}
@@ -123,7 +123,6 @@ uint8_t Bouton::getNbComptes()
 {
 	return _nbComptes;
 }
-
 
 //*********************************************************************
 // Routine pour ajuster l'intervalle de temps pour ajouter les valeurs

@@ -7,8 +7,8 @@ class BoutonPin : public Bouton
 {
 public:
   BoutonPin(int address, bool rising=true, bool pullup=false);
-  void rafraichir();
-  bool operator()() const;
+  void refresh();
+
 private:
   int _address;
   int _front;
