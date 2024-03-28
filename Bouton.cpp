@@ -1,6 +1,6 @@
 #include "Bouton.h"
 
-Bouton::Bouton(unsigned long debounceDelay, uint8_t nbComptes, unsigned long longPressDelay, unsigned long longPressInterval);
+Bouton::Bouton(unsigned long debounceDelay, uint8_t nbComptes, unsigned long longPressDelay, unsigned long longPressInterval)
 {
 	_lastEtat = RELACHE;
 	_keyRegister = 0;
@@ -11,7 +11,7 @@ Bouton::Bouton(unsigned long debounceDelay, uint8_t nbComptes, unsigned long lon
 	Bouton::setLongPressInterval(longPressInterval);
 }
 
-void Bouton::refresh(bool (*booleanGetter)(), bool forceNow);
+void Bouton::refresh(std::function<bool()> f, bool forceNow)
 {
 
 	unsigned long _actualSample = millis();
@@ -19,8 +19,7 @@ void Bouton::refresh(bool (*booleanGetter)(), bool forceNow);
 	if (forceNow || (_actualSample - _lastSample > _debounceDelay))
 	{ // Si temps d'echantillonnage atteint
 		_lastSample = _actualSample;
-
-		forward(booleanGetter()); // Decale le registre
+		forward((f)()); // Decale le registre
 	}
 	changeEtat(_actualSample);
 }
@@ -74,7 +73,7 @@ int Bouton::changeEtat(unsigned long cur_time)
 		}
 		else if (_lastEtat == MAINTENU)
 		{
-			if (cur_time - time_maintenu_started > longPressInterval)
+			if (cur_time - time_maintenu_started > _longPressInterval)
 			{
 				_lastEtat = MAINTENANT;
 				time_maintenu_started = cur_time;
@@ -104,11 +103,11 @@ int Bouton::changeEtat(unsigned long cur_time)
 void Bouton::forward(bool newValue)
 {
 
-	if (newValue && _keyRegister < _nbComptes)
+	if (newValue && (_keyRegister < _nbComptes))
 	{
 		_keyRegister++;
 	}
-	else if (_keyRegister > 0)
+	else if (!newValue  && (_keyRegister > 0))
 	{
 		_keyRegister--;
 	}
@@ -158,9 +157,9 @@ unsigned long Bouton::getLongPressDelay()
 //*********************************************************************
 void Bouton::setLongPressInterval(unsigned long interval)
 {
-	longPressInterval = interval;
+	_longPressInterval = interval;
 }
 unsigned long Bouton::getLongPressInterval()
 {
-	return longPressInterval;
+	return _longPressInterval;
 }

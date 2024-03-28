@@ -13,14 +13,16 @@
 #define MAINTENU 6
 #define MAINTENANT 7
 
+
 #include "Arduino.h"
+
 
 class Bouton
 {
 public:
 	Bouton(unsigned long debounceDelay = DEFAULT_DEBOUNCE_DELAY, uint8_t nbComptes = DEFAULT_NOMBRE_COMPTES, unsigned long longPressDelay = DEFAULT_lONG_PRESS_DELAY, unsigned long longPressInterval = DEFAULT_lONG_PRESS_INTERVAL);
 
-	void refresh(bool (*booleanGetter)(), bool forceNow=false);
+	void refresh(std::function<bool()> f, bool forceNow=false);
 
 	bool isPressed();
 	bool isReleased();

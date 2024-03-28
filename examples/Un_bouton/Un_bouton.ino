@@ -18,9 +18,9 @@ void setup()
 {
   Serial.begin(115200); // Pour l'exemple, le port Série sera utilisé pour observer le comportemement du bouton.
 
-  monBouton.setDebounceDelay(6);       // Ajuste de 'Debounce' pour la détection du bouton à 6 millisecondes. (Par défaut : 5 millisecondes);
-  monBouton.setLongPressDelay(500);    // Le bouton sera considéré en 'longPress' s'il est appuyé plus de 500 millisecondes.  (Par défaut : 2000 millisecondes);
-  monBouton.setLongPressInterval(100); // La condition 'isLongPressed' reviendra vraie périodiquement, à chaque 100 millisecondes. (Par défaut : 200 millisecondes);
+  monBouton.setDebounceDelay(5);       // Ajuste de 'Debounce' pour la détection du bouton à 5 millisecondes. (Par défaut : 5 millisecondes);
+  monBouton.setLongPressDelay(1500);    // Le bouton sera considéré en 'longPress' s'il est appuyé plus de 500 millisecondes.  (Par défaut : 1500 millisecondes);
+  monBouton.setLongPressInterval(200); // La condition 'isLongPressed' reviendra vraie périodiquement, à chaque 100 millisecondes. (Par défaut : 200 millisecondes);
 }
 
 void loop()
@@ -39,16 +39,5 @@ void loop()
   {
     Serial.println("Le bouton a été relâché.");
   }
-  if (monBouton.isOnPress())
-  { // condition VRAIE lorsque le bouton est en mode PRESS.
-    Serial.println("Le bouton est présentement appuyé.");
-  }
-  if (monBouton.isOnLongPress())
-  { // condition VRAIE EST EN MODE LONG_PRESS;
-    Serial.println("Le bouton est présentement appuyé longtemps.");
-  }
-  if (monBouton.isOnRelease()) // condition VRAIE lorsque le bouton est en mode RELEASE;
-  {
-    Serial.println("Le bouton est présentement relâché.");
-  }
+ 
 }

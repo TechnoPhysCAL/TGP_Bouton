@@ -6,11 +6,10 @@
 class BoutonPin : public Bouton
 {
 public:
-  BoutonPin(int address, bool rising=LOW, bool pullup=false);
-  void refresh();
-
+  BoutonPin(int address, bool rising=true, bool pullup=false);
+  void rafraichir();
+  bool operator()() const;
 private:
-  void refresh(bool);
   int _address;
   int _front;
 };
