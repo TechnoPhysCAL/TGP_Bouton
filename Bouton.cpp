@@ -1,58 +1,26 @@
 #include "Bouton.h"
 
-Bouton::Bouton()
+Bouton::Bouton(unsigned long debounceDelay, uint8_t nbComptes, unsigned long longPressDelay, unsigned long longPressInterval);
 {
 	_lastEtat = RELACHE;
 	_keyRegister = 0;
-	_register_threshold = 255;
 
-	_delayDebounce = DEFAULT_DEBOUNCE_DELAY;
-	_dureeLongClic = DEFAULT_lONG_PRESS_DELAY;
-	_dureeRepetition = DEFAULT_lONG_PRESS_INTERVAL;
+	Bouton::setDebounceDelay(debounceDelay);
+	Bouton::setNbComptes(nbComptes);
+	Bouton::setLongPressDelay(longPressDelay);
+	Bouton::setLongPressInterval(longPressInterval);
 }
 
-void Bouton::setNbBits(uint8_t number_steps)
-{
-	switch (number_steps)
-	{
-	case 1:
-		_register_threshold = 0b1;
-		break;
-	case 2:
-		_register_threshold = 0b11;
-		break;
-	case 3:
-		_register_threshold = 0b111;
-		break;
-	case 4:
-		_register_threshold = 0b1111;
-		break;
-	case 5:
-		_register_threshold = 0b11111;
-		break;
-	case 6:
-		_register_threshold = 0b111111;
-		break;
-	case 7:
-		_register_threshold = 0b1111111;
-		break;
-	default:
-
-		_register_threshold = 0b11111111;
-		break;
-	}
-}
-
-void Bouton::refresh(bool newValue)
+void Bouton::refresh(bool (*booleanGetter)(), bool forceNow);
 {
 
 	unsigned long _actualSample = millis();
 
-	if (_actualSample - _lastSample > _delayDebounce)
+	if (forceNow || (_actualSample - _lastSample > _debounceDelay))
 	{ // Si temps d'echantillonnage atteint
 		_lastSample = _actualSample;
 
-		forward(newValue); // Decale le registre
+		forward(booleanGetter()); // Decale le registre
 	}
 	changeEtat(_actualSample);
 }
@@ -86,7 +54,7 @@ bool Bouton::isOnLongPress()
 int Bouton::changeEtat(unsigned long cur_time)
 {
 
-	if (_keyRegister >= _register_threshold)
+	if (_keyRegister >= _nbComptes)
 	{
 		if (_lastEtat == ENFONCANT)
 		{
@@ -94,7 +62,7 @@ int Bouton::changeEtat(unsigned long cur_time)
 		}
 		else if (_lastEtat == ENFONCE)
 		{
-			if (cur_time - time_started > _dureeLongClic)
+			if (cur_time - time_started > _longPressDelay)
 			{
 				_lastEtat = MAINTENANT;
 				time_maintenu_started = cur_time;
@@ -106,7 +74,7 @@ int Bouton::changeEtat(unsigned long cur_time)
 		}
 		else if (_lastEtat == MAINTENU)
 		{
-			if (cur_time - time_maintenu_started > _dureeRepetition)
+			if (cur_time - time_maintenu_started > longPressInterval)
 			{
 				_lastEtat = MAINTENANT;
 				time_maintenu_started = cur_time;
@@ -136,13 +104,27 @@ int Bouton::changeEtat(unsigned long cur_time)
 void Bouton::forward(bool newValue)
 {
 
-	_keyRegister = _keyRegister >> 1;
-	
-	if (newValue)
+	if (newValue && _keyRegister < _nbComptes)
 	{
-		_keyRegister += 0x80;
+		_keyRegister++;
+	}
+	else if (_keyRegister > 0)
+	{
+		_keyRegister--;
 	}
 }
+//*********************************************************************
+// Routine pour NbComptes
+//*********************************************************************
+void Bouton::setNbComptes(uint8_t nbComptes)
+{
+	_nbComptes = nbComptes;
+}
+uint8_t Bouton::getNbComptes()
+{
+	return _nbComptes;
+}
+
 
 //*********************************************************************
 // Routine pour ajuster l'intervalle de temps pour ajouter les valeurs
@@ -150,11 +132,11 @@ void Bouton::forward(bool newValue)
 //*********************************************************************
 void Bouton::setDebounceDelay(unsigned long delay)
 {
-	_delayDebounce = delay;
+	_debounceDelay = delay;
 }
 unsigned long Bouton::getDebounceDelay()
 {
-	return _delayDebounce;
+	return _debounceDelay;
 }
 
 //*********************************************************************
@@ -163,11 +145,11 @@ unsigned long Bouton::getDebounceDelay()
 //*********************************************************************
 void Bouton::setLongPressDelay(unsigned long delay)
 {
-	_dureeLongClic = delay;
+	_longPressDelay = delay;
 }
 unsigned long Bouton::getLongPressDelay()
 {
-	return _dureeLongClic;
+	return _longPressDelay;
 }
 
 //*********************************************************************
@@ -176,9 +158,9 @@ unsigned long Bouton::getLongPressDelay()
 //*********************************************************************
 void Bouton::setLongPressInterval(unsigned long interval)
 {
-	_dureeRepetition = interval;
+	longPressInterval = interval;
 }
 unsigned long Bouton::getLongPressInterval()
 {
-	return _dureeRepetition;
+	return longPressInterval;
 }

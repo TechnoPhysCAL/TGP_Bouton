@@ -2,7 +2,7 @@
 #define Bouton_h
 
 #define DEFAULT_DEBOUNCE_DELAY 5
-
+#define DEFAULT_NOMBRE_COMPTES 4
 #define DEFAULT_lONG_PRESS_DELAY 1500
 #define DEFAULT_lONG_PRESS_INTERVAL 200
 
@@ -17,10 +17,10 @@
 
 class Bouton
 {
-  public:
-	Bouton();
+public:
+	Bouton(unsigned long debounceDelay = DEFAULT_DEBOUNCE_DELAY, uint8_t nbComptes = DEFAULT_NOMBRE_COMPTES, unsigned long longPressDelay = DEFAULT_lONG_PRESS_DELAY, unsigned long longPressInterval = DEFAULT_lONG_PRESS_INTERVAL);
 
-	void refresh(bool newValue);
+	void refresh(bool (*booleanGetter)(), bool forceNow=false);
 
 	bool isPressed();
 	bool isReleased();
@@ -30,8 +30,8 @@ class Bouton
 	bool isOnRelease();
 	bool isOnLongPress();
 
-	void setNbBits(uint8_t);
-	
+	void setNbComptes(uint8_t);
+	uint8_t getNbComptes();
 	void setDebounceDelay(unsigned long);
 	unsigned long getDebounceDelay();
 	void setLongPressDelay(unsigned long);
@@ -39,13 +39,12 @@ class Bouton
 	void setLongPressInterval(unsigned long);
 	unsigned long getLongPressInterval();
 
-
-  protected:
+protected:
 	void forward(bool);
 	int changeEtat(unsigned long cur_time);
-	
- private:
-  	int _keyRegister;
+
+private:
+	int _keyRegister;
 	uint8_t _register_threshold;
 	int _lastEtat;
 	unsigned long time_started;
@@ -53,10 +52,10 @@ class Bouton
 
 	unsigned long _lastSample;
 
-	unsigned long _delayDebounce;
-	unsigned long _dureeLongClic;
-	unsigned long _dureeRepetition;
-
+	unsigned long _debounceDelay;
+	uint8_t _nbComptes;
+	unsigned long _longPressDelay;
+	unsigned long _longPressInterval;
 };
 
 #endif
