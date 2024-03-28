@@ -9,6 +9,23 @@ Bouton::Bouton(unsigned long debounceDelay, uint8_t nbComptes, unsigned long lon
 	Bouton::setNbComptes(nbComptes);
 	Bouton::setLongPressDelay(longPressDelay);
 	Bouton::setLongPressInterval(longPressInterval);
+
+	_whenPressed = []()->void {;};
+	_whenLongPressed = []()->void {;};
+	_whenReleased = []()->void {;};
+}
+
+void Bouton::setPressedEvent(std::function<void()> func)
+{
+	_whenPressed = func;
+}
+void Bouton::setLongPressedEvent(std::function<void()> func)
+{
+	_whenLongPressed = func;
+}
+void Bouton::setReleasedEvent(std::function<void()> func)
+{
+	_whenReleased = func;
 }
 
 void Bouton::refresh(std::function<bool()> f, bool forceNow)
@@ -21,7 +38,21 @@ void Bouton::refresh(std::function<bool()> f, bool forceNow)
 		_lastSample = _actualSample;
 		forward((f)()); // Decale le registre
 	}
-	changeEtat(_actualSample);
+	
+	switch (changeEtat(_actualSample)) //si des événements y sont attachés
+	{
+	case ENFONCANT:
+		_whenPressed();
+		break;
+	case MAINTENANT:
+		_whenLongPressed();
+		break;
+	case RELACHANT:
+		_whenReleased();
+		break;
+	default:
+		break;
+	}
 }
 
 bool Bouton::isPressed()
@@ -82,6 +113,7 @@ int Bouton::changeEtat(unsigned long cur_time)
 		else
 		{
 			_lastEtat = ENFONCANT;
+
 			time_started = cur_time;
 		}
 	}

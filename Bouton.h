@@ -13,16 +13,14 @@
 #define MAINTENU 6
 #define MAINTENANT 7
 
-
 #include "Arduino.h"
-
 
 class Bouton
 {
 public:
 	Bouton(unsigned long debounceDelay = DEFAULT_DEBOUNCE_DELAY, uint8_t nbComptes = DEFAULT_NOMBRE_COMPTES, unsigned long longPressDelay = DEFAULT_lONG_PRESS_DELAY, unsigned long longPressInterval = DEFAULT_lONG_PRESS_INTERVAL);
 
-	void refresh(std::function<bool()> f, bool forceNow=false);
+	void refresh(std::function<bool()> f, bool forceNow = false);
 
 	bool isPressed();
 	bool isReleased();
@@ -41,6 +39,10 @@ public:
 	void setLongPressInterval(unsigned long);
 	unsigned long getLongPressInterval();
 
+	void setPressedEvent(std::function<void()> func);
+	void setLongPressedEvent(std::function<void()> func);
+	void setReleasedEvent(std::function<void()> func);
+
 protected:
 	void forward(bool);
 	int changeEtat(unsigned long cur_time);
@@ -58,6 +60,10 @@ private:
 	uint8_t _nbComptes;
 	unsigned long _longPressDelay;
 	unsigned long _longPressInterval;
+
+	std::function<bool()> _whenPressed;
+	std::function<void()> _whenLongPressed;
+	std::function<void()> _whenReleased;
 };
 
 #endif
