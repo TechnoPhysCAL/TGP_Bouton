@@ -7,9 +7,9 @@ class BoutonPin : public Bouton
 {
 public:
   BoutonPin(int address, bool rising=true, bool pullup=false);
-  void refresh();
 
 private:
+  setValueGetter(BooleanGetter func);
   int _address;
   int _front;
 };

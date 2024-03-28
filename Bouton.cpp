@@ -10,25 +10,35 @@ Bouton::Bouton(unsigned long debounceDelay, uint8_t nbComptes, unsigned long lon
 	Bouton::setLongPressDelay(longPressDelay);
 	Bouton::setLongPressInterval(longPressInterval);
 
-	_whenPressed = []()->void {;};
-	_whenLongPressed = []()->void {;};
-	_whenReleased = []()->void {;};
+	_valueGetter = []() -> bool
+	{ return false; };
+	_whenPressed = []() -> void
+	{ ; };
+	_whenLongPressed = []() -> void
+	{ ; };
+	_whenReleased = []() -> void
+	{ ; };
 }
 
-void Bouton::setPressedEvent(std::function<void()> func)
+void Bouton::setValueGetter(BooleanGetter func)
+{
+	_valueGetter = func;
+}
+
+void Bouton::setPressedEvent(Callback func)
 {
 	_whenPressed = func;
 }
-void Bouton::setLongPressedEvent(std::function<void()> func)
+void Bouton::setLongPressedEvent(Callback func)
 {
 	_whenLongPressed = func;
 }
-void Bouton::setReleasedEvent(std::function<void()> func)
+void Bouton::setReleasedEvent(Callback func)
 {
 	_whenReleased = func;
 }
 
-void Bouton::refresh(std::function<bool()> f, bool forceNow)
+void Bouton::refresh(bool forceNow)
 {
 
 	unsigned long _actualSample = millis();
@@ -36,10 +46,10 @@ void Bouton::refresh(std::function<bool()> f, bool forceNow)
 	if (forceNow || (_actualSample - _lastSample > _debounceDelay))
 	{ // Si temps d'echantillonnage atteint
 		_lastSample = _actualSample;
-		forward((f)()); // Decale le registre
+		forward(_valueGetter()); // Decale le registre
 	}
-	
-	switch (changeEtat(_actualSample)) //si des événements y sont attachés
+
+	switch (changeEtat(_actualSample)) // si des événements y sont attachés
 	{
 	case ENFONCANT:
 		_whenPressed();

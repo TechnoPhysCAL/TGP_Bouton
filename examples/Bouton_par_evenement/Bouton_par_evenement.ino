@@ -7,39 +7,40 @@
 
 */
 
-#define PIN_BOUTON 34 // Le numéro de la broche sur laquelle est lu le bouton
+#define PIN_BOUTON 34  // Le numéro de la broche sur laquelle est lu le bouton
 
-#include <BoutonPin.h> //Pour utiliser la librairie Bouton
+#include <BoutonPin.h>  //Pour utiliser la librairie Bouton
 
-BoutonPin monBouton(PIN_BOUTON); // Initialisation du bouton sur le port choisi
+BoutonPin monBouton(PIN_BOUTON);  // Initialisation du bouton sur le port choisi
 // BoutonPin monBouton(PIN_BOUTON,true,true); // Initialisation du bouton sur le port choisi, front montant détecté, utilise le mode INPUT_PULLUP
 
-void setup()
-{
-  Serial.begin(115200); // Pour l'exemple, le port Série sera utilisé pour observer le comportemement du bouton.
+void setup() {
+  Serial.begin(115200);  // Pour l'exemple, le port Série sera utilisé pour observer le comportemement du bouton.
 
+  //On peut fournir une référence à la fonction à apppler selon les trois événements possibles.
   monBouton.setPressedEvent(&routineQuandAppuye);
   monBouton.setLongPressedEvent(&routineQuandAppuyeLonguement);
   monBouton.setReleasedEvent(&routineQuandRelache);
+
+  //On peut aussi simplifier l'écriture avec une fonction anonyme :
+  //monBouton.setPressedEvent([](){Serial.println("Le bouton a été appuyé.");});
+  //monBouton.setLongPressedEvent([](){Serial.println("Le bouton a été appuyé longement.");});
+  //monBouton.setReleasedEvent([](){Serial.println("Le bouton a été relâché.");});
 }
 
-void loop()
-{
-  monBouton.refresh(); // Permet d'actualiser l'état du bouton. CETTE MÉTHODE EST OBLIGATOIRE EN DÉBUT DE LOOP(), IDÉALEMENT.
+void loop() {
+  monBouton.refresh();  // Permet d'actualiser l'état du bouton. CETTE MÉTHODE EST OBLIGATOIRE EN DÉBUT DE LOOP(), IDÉALEMENT.
 }
 
 
-void routineQuandAppuye()
-{
+void routineQuandAppuye() {
   Serial.println("Le bouton a été appuyé.");
 }
 
-void routineQuandAppuyeLonguement()
-{
+void routineQuandAppuyeLonguement() {
   Serial.println("Le bouton a été appuyé longtemps.");
 }
 
-void routineQuandRelache()
-{
+void routineQuandRelache() {
   Serial.println("Le bouton a été relâché.");
 }

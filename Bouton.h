@@ -14,14 +14,17 @@
 #define MAINTENANT 7
 
 #include "Arduino.h"
+typedef std::function<void(void)>  Callback;
+typedef std::function<bool(void)>  BooleanGetter;
 
 class Bouton
 {
 public:
 	Bouton(unsigned long debounceDelay = DEFAULT_DEBOUNCE_DELAY, uint8_t nbComptes = DEFAULT_NOMBRE_COMPTES, unsigned long longPressDelay = DEFAULT_lONG_PRESS_DELAY, unsigned long longPressInterval = DEFAULT_lONG_PRESS_INTERVAL);
 
-	void refresh(std::function<bool()> f, bool forceNow = false);
+	void refresh( bool forceNow = false);
 
+	void setValueGetter(BooleanGetter func);
 	bool isPressed();
 	bool isReleased();
 	bool isLongPressed();
@@ -61,9 +64,10 @@ private:
 	unsigned long _longPressDelay;
 	unsigned long _longPressInterval;
 
-	std::function<bool()> _whenPressed;
-	std::function<void()> _whenLongPressed;
-	std::function<void()> _whenReleased;
+	BooleanGetter _valueGetter;
+	Callback _whenPressed;
+	Callback _whenLongPressed;
+	Callback _whenReleased;
 };
 
 #endif
