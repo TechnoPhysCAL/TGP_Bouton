@@ -1,22 +1,23 @@
 /*
-  Librairie TPG Bouton - Un_bouton.ino
+  Librairie TPG Bouton - Simple_bouton_pin.ino
 
   ###DESCRIPTION
+    Permet de lire simplement un bouton branché sur une broche digitale.
 
   Note: ###NOTE
 
 */
 
 #define PIN_BOUTON 34 // Le numéro de la broche sur laquelle est lu le bouton
-
 #include <BoutonPin.h> //Pour utiliser la librairie Bouton
 
-BoutonPin monBouton(PIN_BOUTON); // Initialisation du bouton sur le port choisi
-// BoutonPin monBouton(PIN_BOUTON,true,true); // Initialisation du bouton sur le port choisi, front montant détecté, utilise le mode INPUT_PULLUP
+BoutonPin monBouton(PIN_BOUTON); // Initialisation du bouton sur la broche choisi
+// BoutonPin monBouton(PIN_BOUTON,true,true); // ALTERNATIVE : Initialisation du bouton sur la broche choisi, front montant détecté, utilise le mode INPUT_PULLUP
 
 void setup()
 {
   Serial.begin(115200); // Pour l'exemple, le port Série sera utilisé pour observer le comportemement du bouton.
+  monBouton.begin();  //Nécessaire pour configurer adéquatement la broche
 
   monBouton.setDebounceDelay(5);       // Ajuste de 'Debounce' pour la détection du bouton à 5 millisecondes. (Par défaut : 5 millisecondes);
   monBouton.setLongPressDelay(1500);    // Le bouton sera considéré en 'longPress' s'il est appuyé plus de 500 millisecondes.  (Par défaut : 1500 millisecondes);
