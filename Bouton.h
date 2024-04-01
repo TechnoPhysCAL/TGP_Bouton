@@ -14,8 +14,14 @@
 #define MAINTENANT 7
 
 #include "Arduino.h"
+
+#ifndef __AVR__
 typedef std::function<void(void)>  Callback;
 typedef std::function<bool(void)>  BooleanGetter;
+#else
+typedef void (*Callback)();
+typedef bool (*BooleanGetter)();
+#endif
 
 class Bouton
 {
@@ -42,9 +48,9 @@ public:
 	void setLongPressInterval(unsigned long);
 	unsigned long getLongPressInterval();
 
-	void setOnPressed(std::function<void()> func);
-	void setOnLongPressed(std::function<void()> func);
-	void setOnReleased(std::function<void()> func);
+	void setOnPressed(Callback func);
+	void setOnLongPressed(Callback func);
+	void setOnReleased(Callback func);
 
 protected:
 	void forward(bool);

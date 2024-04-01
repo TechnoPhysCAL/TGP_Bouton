@@ -10,6 +10,7 @@ Bouton::Bouton(unsigned long debounceDelay, uint8_t nbComptes, unsigned long lon
 	Bouton::setLongPressDelay(longPressDelay);
 	Bouton::setLongPressInterval(longPressInterval);
 
+#ifndef __AVR__
 	_valueGetter = []() -> bool
 	{ return false; };
 	_whenPressed = []() -> void
@@ -18,6 +19,7 @@ Bouton::Bouton(unsigned long debounceDelay, uint8_t nbComptes, unsigned long lon
 	{ ; };
 	_whenReleased = []() -> void
 	{ ; };
+#endif
 }
 
 void Bouton::setValueGetter(BooleanGetter func)

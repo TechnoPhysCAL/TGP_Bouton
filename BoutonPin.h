@@ -10,6 +10,7 @@ public:
   void begin();
 
 private:
+  bool readValue();
   int _address;
   int _front;
   bool _pullup;
