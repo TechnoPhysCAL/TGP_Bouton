@@ -11,8 +11,6 @@ BoutonPin::BoutonPin(int address, bool rising, bool pullup) : Bouton()
 	{ return digitalRead(_address) == _front; };
 
 	Bouton::setValueGetter(booleanGetter);
-#else
-	//Bouton::setValueGetter(&BoutonPin::readValue);
 #endif
 }
 
@@ -21,6 +19,9 @@ void BoutonPin::begin()
 	pinMode(_address, _pullup ? INPUT_PULLUP : INPUT);
 }
 
-bool BoutonPin::readValue(){
-	 return digitalRead(_address) == _front; 
+#ifdef __AVR__
+bool BoutonPin::getNextValue()
+{
+	return digitalRead(_address) == _front;
 }
+#endif

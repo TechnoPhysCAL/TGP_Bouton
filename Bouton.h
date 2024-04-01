@@ -74,6 +74,14 @@ private:
 	Callback _whenPressed;
 	Callback _whenLongPressed;
 	Callback _whenReleased;
+	#ifdef __AVR__
+	virtual bool getNextValue();
+	#else
+	bool getNextValue();
+	#endif
+	void doWhenPressed();
+	void doWhenLongPressed();
+	void doWhenReleased();
 };
 
 #endif

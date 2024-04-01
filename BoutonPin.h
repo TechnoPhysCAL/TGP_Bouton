@@ -10,7 +10,9 @@ public:
   void begin();
 
 private:
-  bool readValue();
+#ifdef __AVR__
+  bool getNextValue() override;
+#endif
   int _address;
   int _front;
   bool _pullup;

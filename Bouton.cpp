@@ -10,16 +10,11 @@ Bouton::Bouton(unsigned long debounceDelay, uint8_t nbComptes, unsigned long lon
 	Bouton::setLongPressDelay(longPressDelay);
 	Bouton::setLongPressInterval(longPressInterval);
 
-#ifndef __AVR__
-	_valueGetter = []() -> bool
-	{ return false; };
-	_whenPressed = []() -> void
-	{ ; };
-	_whenLongPressed = []() -> void
-	{ ; };
-	_whenReleased = []() -> void
-	{ ; };
-#endif
+	_valueGetter = nullptr;
+	_whenPressed = nullptr;
+	_whenLongPressed = nullptr;
+	_whenReleased = nullptr;
+
 }
 
 void Bouton::setValueGetter(BooleanGetter func)
@@ -48,19 +43,19 @@ void Bouton::refresh(bool forceNow)
 	if (forceNow || (_actualSample - _lastSample > _debounceDelay))
 	{ // Si temps d'echantillonnage atteint
 		_lastSample = _actualSample;
-		forward(_valueGetter()); // Decale le registre
+		forward(Bouton::getNextValue()); // Decale le registre
 	}
 
 	switch (changeEtat(_actualSample)) // si des événements y sont attachés
 	{
 	case ENFONCANT:
-		_whenPressed();
+		Bouton::doWhenPressed();
 		break;
 	case MAINTENANT:
-		_whenLongPressed();
+		Bouton::doWhenLongPressed();
 		break;
 	case RELACHANT:
-		_whenReleased();
+		Bouton::doWhenReleased();
 		break;
 	default:
 		break;
@@ -205,4 +200,37 @@ void Bouton::setLongPressInterval(unsigned long interval)
 unsigned long Bouton::getLongPressInterval()
 {
 	return _longPressInterval;
+}
+
+bool Bouton::getNextValue()
+{
+	if (_valueGetter != nullptr)
+	{
+		return _valueGetter();
+	}
+	else
+	{
+		return false;
+	}
+}
+void Bouton::doWhenPressed()
+{
+	if (_whenPressed != nullptr)
+	{
+		_whenPressed();
+	}
+}
+void Bouton::doWhenLongPressed()
+{
+	if (_whenLongPressed != nullptr)
+	{
+		_whenLongPressed();
+	}
+}
+void Bouton::doWhenReleased()
+{
+	if (_whenReleased != nullptr)
+	{
+		_whenReleased();
+	}
 }

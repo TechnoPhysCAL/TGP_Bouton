@@ -16,13 +16,12 @@ Bouton monBouton;  // Initialisation du bouton générique sur le port choisi
 
 void setup() {
   pinMode(PIN_BOUTON, INPUT);
+  monBouton.setValueGetter(&readButtonPin);
   Serial.begin(115200);  // Pour l'exemple, le port Série sera utilisé pour observer le comportemement du bouton.
 }
 
 void loop() {
-  //monBouton.refresh(&readNewValue);  // Permet d'actualiser l'état du bouton, en fournissant une fonction qui permet de lire l'état booleen du bouton souhaité.
-
-   monBouton.refresh([=](){return digitalRead(PIN_BOUTON) == LOW;});  // On peut simplifier l'écriture avec une fonction "anonyme", comme ici.
+   monBouton.refresh();  // On peut simplifier l'écriture avec une fonction "anonyme", comme ici.
 
   if (monBouton.isPressed()) {  // condition VRAIE lorsque le bouton vient d'être appuyé.
     Serial.println("Le bouton a été appuyé.");
@@ -36,6 +35,6 @@ void loop() {
   }
 }
 
-bool readNewValue() {
+bool readButtonPin() {
   return digitalRead(PIN_BOUTON) == LOW;
 }
