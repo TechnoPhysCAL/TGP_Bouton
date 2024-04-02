@@ -9,10 +9,10 @@ public:
   BoutonPin(int address, bool rising = true, bool pullup = false);
   void begin();
 
-private:
-#ifdef __AVR__
+protected:
   bool getNextValue() override;
-#endif
+
+private:
   int _address;
   int _front;
   bool _pullup;

@@ -16,8 +16,8 @@
 #include "Arduino.h"
 
 #ifndef __AVR__
-typedef std::function<void(void)>  Callback;
-typedef std::function<bool(void)>  BooleanGetter;
+typedef std::function<void(void)> Callback;
+typedef std::function<bool(void)> BooleanGetter;
 #else
 typedef void (*Callback)();
 typedef bool (*BooleanGetter)();
@@ -28,7 +28,7 @@ class Bouton
 public:
 	Bouton(unsigned long debounceDelay = DEFAULT_DEBOUNCE_DELAY, uint8_t nbComptes = DEFAULT_NOMBRE_COMPTES, unsigned long longPressDelay = DEFAULT_lONG_PRESS_DELAY, unsigned long longPressInterval = DEFAULT_lONG_PRESS_INTERVAL);
 
-	void refresh( bool forceNow = false);
+	void refresh(bool forceNow = false);
 
 	void setValueGetter(BooleanGetter func);
 	bool isPressed();
@@ -55,6 +55,7 @@ public:
 protected:
 	void forward(bool);
 	int changeEtat(unsigned long cur_time);
+	virtual bool getNextValue();
 
 private:
 	int _keyRegister;
@@ -74,11 +75,7 @@ private:
 	Callback _whenPressed;
 	Callback _whenLongPressed;
 	Callback _whenReleased;
-	#ifdef __AVR__
-	virtual bool getNextValue();
-	#else
-	bool getNextValue();
-	#endif
+
 	void doWhenPressed();
 	void doWhenLongPressed();
 	void doWhenReleased();
