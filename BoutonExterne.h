@@ -10,8 +10,9 @@ public:
 	void setNextValue(bool);
 
 protected:
+#ifdef __AVR__
 	bool getNextValue() override;
-
+#endif
 private:
 	bool _nextValue;
 };

@@ -10,17 +10,21 @@ Bouton::Bouton(unsigned long debounceDelay, uint8_t nbComptes, unsigned long lon
 	Bouton::setLongPressDelay(longPressDelay);
 	Bouton::setLongPressInterval(longPressInterval);
 
+#ifndef __AVR__
 	_valueGetter = nullptr;
+#endif
 	_whenPressed = nullptr;
 	_whenLongPressed = nullptr;
 	_whenReleased = nullptr;
 
 }
 
+#ifndef __AVR__
 void Bouton::setValueGetter(BooleanGetter func)
 {
 	_valueGetter = func;
 }
+#endif
 
 void Bouton::setOnPressed(Callback func)
 {
@@ -204,6 +208,7 @@ unsigned long Bouton::getLongPressInterval()
 
 bool Bouton::getNextValue()
 {
+#ifndef	__AVR__
 	if (_valueGetter != nullptr)
 	{
 		return _valueGetter();
@@ -212,6 +217,9 @@ bool Bouton::getNextValue()
 	{
 		return false;
 	}
+#else
+	return false;
+#endif
 }
 void Bouton::doWhenPressed()
 {

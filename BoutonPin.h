@@ -10,8 +10,9 @@ public:
   void begin();
 
 protected:
+#ifdef __AVR__
   bool getNextValue() override;
-
+#endif
 private:
   int _address;
   int _front;

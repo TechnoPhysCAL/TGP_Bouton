@@ -29,8 +29,9 @@ public:
 	Bouton(unsigned long debounceDelay = DEFAULT_DEBOUNCE_DELAY, uint8_t nbComptes = DEFAULT_NOMBRE_COMPTES, unsigned long longPressDelay = DEFAULT_lONG_PRESS_DELAY, unsigned long longPressInterval = DEFAULT_lONG_PRESS_INTERVAL);
 
 	void refresh(bool forceNow = false);
-
+	#ifndef __AVR__
 	void setValueGetter(BooleanGetter func);
+	#endif
 	bool isPressed();
 	bool isReleased();
 	bool isLongPressed();
@@ -55,7 +56,11 @@ public:
 protected:
 	void forward(bool);
 	int changeEtat(unsigned long cur_time);
+	#ifndef __AVR__
+	bool getNextValue();
+	#else
 	virtual bool getNextValue();
+	#endif
 
 private:
 	int _keyRegister;
@@ -71,7 +76,9 @@ private:
 	unsigned long _longPressDelay;
 	unsigned long _longPressInterval;
 
+	#ifndef __AVR__
 	BooleanGetter _valueGetter;
+	#endif
 	Callback _whenPressed;
 	Callback _whenLongPressed;
 	Callback _whenReleased;
