@@ -1,10 +1,8 @@
 /*
-  Librairie TPG Bouton - Simple_bouton_pin.ino
+  ## Librairie TPG Bouton - Bouton_simple.ino
 
   ###DESCRIPTION
-    Permet de lire simplement un bouton branché sur une broche digitale.
-
-  Note: ###NOTE
+    Permet de lire un bouton branché sur une broche digitale.
 
 */
 
@@ -18,10 +16,6 @@ void setup()
 {
   Serial.begin(115200); // Pour l'exemple, le port Série sera utilisé pour observer le comportemement du bouton.
   monBouton.begin();  //Nécessaire pour configurer adéquatement la broche
-
-  monBouton.setDebounceDelay(5);       // Ajuste de 'Debounce' pour la détection du bouton à 5 millisecondes. (Par défaut : 5 millisecondes);
-  monBouton.setLongPressDelay(1500);    // Le bouton sera considéré en 'longPress' s'il est appuyé plus de 500 millisecondes.  (Par défaut : 1500 millisecondes);
-  monBouton.setLongPressInterval(200); // La condition 'isLongPressed' reviendra vraie périodiquement, à chaque 100 millisecondes. (Par défaut : 200 millisecondes);
 }
 
 void loop()

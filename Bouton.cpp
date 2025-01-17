@@ -1,5 +1,22 @@
 #include "Bouton.h"
 
+Bouton::Bouton(BooleanGetter booleanGetter, unsigned long debounceDelay, uint8_t nbComptes, unsigned long longPressDelay, unsigned long longPressInterval)
+{
+	_lastEtat = RELACHE;
+	_keyRegister = 0;
+
+	Bouton::setDebounceDelay(debounceDelay);
+	Bouton::setNbComptes(nbComptes);
+	Bouton::setLongPressDelay(longPressDelay);
+	Bouton::setLongPressInterval(longPressInterval);
+
+	_valueGetter = booleanGetter;
+
+	_whenPressed = nullptr;
+	_whenLongPressed = nullptr;
+	_whenReleased = nullptr;
+}
+
 Bouton::Bouton(unsigned long debounceDelay, uint8_t nbComptes, unsigned long longPressDelay, unsigned long longPressInterval)
 {
 	_lastEtat = RELACHE;
@@ -10,21 +27,17 @@ Bouton::Bouton(unsigned long debounceDelay, uint8_t nbComptes, unsigned long lon
 	Bouton::setLongPressDelay(longPressDelay);
 	Bouton::setLongPressInterval(longPressInterval);
 
-#ifndef __AVR__
 	_valueGetter = nullptr;
-#endif
 	_whenPressed = nullptr;
 	_whenLongPressed = nullptr;
 	_whenReleased = nullptr;
-
 }
 
-#ifndef __AVR__
-void Bouton::setValueGetter(BooleanGetter func)
+
+void Bouton::setStateGetter(BooleanGetter func)
 {
 	_valueGetter = func;
 }
-#endif
 
 void Bouton::setOnPressed(Callback func)
 {
@@ -47,7 +60,7 @@ void Bouton::refresh(bool forceNow)
 	if (forceNow || (_actualSample - _lastSample > _debounceDelay))
 	{ // Si temps d'echantillonnage atteint
 		_lastSample = _actualSample;
-		forward(Bouton::getNextValue()); // Decale le registre
+		forward(getNextValue()); // Decale le registre
 	}
 
 	switch (changeEtat(_actualSample)) // si des événements y sont attachés
@@ -208,7 +221,6 @@ unsigned long Bouton::getLongPressInterval()
 
 bool Bouton::getNextValue()
 {
-#ifndef	__AVR__
 	if (_valueGetter != nullptr)
 	{
 		return _valueGetter();
@@ -217,9 +229,6 @@ bool Bouton::getNextValue()
 	{
 		return false;
 	}
-#else
-	return false;
-#endif
 }
 void Bouton::doWhenPressed()
 {

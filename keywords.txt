@@ -7,11 +7,12 @@
 #######################################
 
 Bouton	KEYWORD1
+BoutonPin   KEYWORD1
 
 #######################################
 # Methods and Functions (KEYWORD2)
 #######################################
-
+begin	KEYWORD2
 refresh	KEYWORD2
 
 isPressed	KEYWORD2
@@ -21,6 +22,11 @@ isLongPressed	KEYWORD2
 isOnPress	KEYWORD2
 isOnRelease	KEYWORD2
 isOnLongPress	KEYWORD2
+
+setStateGetter	KEYWORD2
+
+setNbComptes	KEYWORD2
+getNbComptes	KEYWORD2
 
 setDebounceDelay	KEYWORD2
 getDebounceDelay	KEYWORD2

@@ -1,6 +1,6 @@
 # Librairie TGP Bouton
 
-Permet la création de boutons et leur "debouncing". Permet de détecter si le bouton a été appuyé, maintenu appuyé ou relâché.
+Permet la création de boutons. Permet de détecter si le bouton a été appuyé, maintenu appuyé ou relâché.
 
 ## Détails
 
@@ -8,18 +8,18 @@ Le graphique illustre l'évolution temporelle de l'état du bouton et de ses dif
 
 ![Timing](timing.svg)
 
-
 ## Utilisation
 
+La version la plus courante est celui d'un bouton branché sur une broche digitale.
+
 ```cpp
-#include <Bouton.h> 
+#include <BoutonPin.h> 
+#define PIN 34
 
-const int pin = 34; 
-
-Bouton monBouton(pin); 
+BoutonPin monBouton(PIN); 
 
 void setup() {
-  
+  monBouton.begin();
 }
 
 void loop() {
@@ -39,15 +39,18 @@ void loop() {
   }
 }
 ```
-
 ## Constructeurs
 ```cpp
-Bouton(int pin)
-Bouton(int pin, bool useRising, bool usePullup); 
+BoutonPin(int pin)
+BoutonPin(int pin, bool useRising, bool usePullup); 
 ```
 On spécifie le numéro de la broche sur lequel est branché le bouton. On peut spécifier également si c'est le front montant (true) ou descendant (false) qui est considéré comme appuyé,  et l'utilisation ou non de la résistance pullup interne.
 
-
+```cpp
+Bouton(BooleanGetter booleanGetter)
+Bouton(BooleanGetter booleanGetter, unsigned long debounceDelay, uint8_t nbComptes, unsigned long longPressDelay, unsigned long longPressInterval)
+```
+Le constructeur de la classe `Bouton` permet de créer un bouton avec une fonction personnalisée (fonction sans argument qui retourne un booléen) afin d'obtenir l'état du bouton. On peut également spécifier les durées du comportment du boutons (voir dessin ci-haut).
 
 ## Méthodes disponibles
 
@@ -101,9 +104,20 @@ Permet de lire et modifier le temps en millisecondes nécessaire pour que le bou
 
 ---
 ```cpp
-	void setLongPressInterval(unsigned long);
-	unsigned long getLongPressInterval();
+void setLongPressInterval(unsigned long);
+unsigned long getLongPressInterval();
 ```
 Permet de lire et modifier le temps en millisecondes entre chaque valeur vraie de la méthode  'isLongPressed()'. Valeur par défaut : 200 ms.
 
 ---
+```cpp
+void setStateGetter(bool (*stateGetter)());
+```
+Permet de définir une fonction personnalisée pour obtenir l'état du bouton.
+
+---
+```cpp
+void setNbComptes(int nbComptes);
+int getNbComptes();
+```
+Permet de définir et obtenir le nombre de comptes pour le bouton.

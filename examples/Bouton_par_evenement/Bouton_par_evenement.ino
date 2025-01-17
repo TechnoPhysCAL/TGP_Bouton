@@ -1,7 +1,7 @@
 /*
-  Librairie TPG Bouton - Un_bouton.ino
+  ## Librairie TPG Bouton - Bouton_par_evenement.ino
 
-  ###DESCRIPTION
+  ## Permet de configurer le comportement du bouton avec des fonctions de rappel (communémentent appelé *callback*)
 
   Note: ###NOTE
 
@@ -18,29 +18,24 @@ void setup() {
   Serial.begin(115200);  // Pour l'exemple, le port Série sera utilisé pour observer le comportemement du bouton.
 
   //On peut fournir une référence à la fonction à apppler selon les trois événements possibles.
-  monBouton.setOnPressed(&routineQuandAppuye);
-  monBouton.setOnLongPressed(&routineQuandAppuyeLonguement);
-  monBouton.setOnReleased(&routineQuandRelache);
+  monBouton.setOnPressed(&callbackAppuye);
+  monBouton.setOnLongPressed(&callbackAppuyeLonguement);
+  monBouton.setOnReleased(&callbackRelache);
 
-  //On peut aussi simplifier l'écriture avec une fonction anonyme :
-  //monBouton.setOnPressed([](){Serial.println("Le bouton a été appuyé.");});
-  //monBouton.setOnLongPressed([](){Serial.println("Le bouton a été appuyé longement.");});
-  //monBouton.setOnReleased([](){Serial.println("Le bouton a été relâché.");});
 }
 
 void loop() {
   monBouton.refresh();  // Permet d'actualiser l'état du bouton. CETTE MÉTHODE EST OBLIGATOIRE EN DÉBUT DE LOOP(), IDÉALEMENT.
 }
 
-
-void routineQuandAppuye() {
+void callbackAppuye() {
   Serial.println("Le bouton a été appuyé.");
 }
 
-void routineQuandAppuyeLonguement() {
+void callbackAppuyeLonguement() {
   Serial.println("Le bouton a été appuyé longtemps.");
 }
 
-void routineQuandRelache() {
+void callbackRelache() {
   Serial.println("Le bouton a été relâché.");
 }

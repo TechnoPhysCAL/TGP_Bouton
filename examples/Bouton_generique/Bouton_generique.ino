@@ -1,22 +1,20 @@
 /*
-  Librairie TPG Bouton - Bouton_generique.ino
+  ##  Librairie TPG Bouton - Bouton_generique.ino
 
-  ### Ce code présente comment utiliser la classe générique Bouton pour utiliser les fonctionnalités
+  ###DESCRIPTION
+  Ce code présente comment utiliser la classe générique Bouton pour utiliser les fonctionnalités
   de la classe en utilisant une valeur booléenne externe.
 
-  Note: ###NOTE
-
 */
-
-#define PIN_BOUTON 34  // Le numéro de la broche sur laquelle est lu le bouton
-
 #include <Bouton.h>  //Pour utiliser la librairie Bouton
+Bouton monBouton(&lireEtat);  // Initialisation du bouton générique avec une fonction pour connaître l'état voulu du bouton
 
-Bouton monBouton;  // Initialisation du bouton générique sur le port choisi
+//NOTE : On peut utiliser une fonction lambda pour simplifier l'écriture.
+
+//Bouton monBouton([](){return millis()%3000<2000;});  // Initialisation du bouton générique avec une fonction pour connaître l'état voulu du bouton
+
 
 void setup() {
-  pinMode(PIN_BOUTON, INPUT);
-  monBouton.setValueGetter(&readButtonPin);
   Serial.begin(115200);  // Pour l'exemple, le port Série sera utilisé pour observer le comportemement du bouton.
 }
 
@@ -35,6 +33,8 @@ void loop() {
   }
 }
 
-bool readButtonPin() {
-  return digitalRead(PIN_BOUTON) == LOW;
+//Cette fonction est responsable de fournir une valeur booléenne qui représente l'état du bouton (vrai==appuyé, faux==relâché).
+bool lireEtat() {
+  return millis()%3000<2000; //Bouton simulé qui est appuyé durant 2.5 secondes et relâché 1 seconde.
+  
 }
