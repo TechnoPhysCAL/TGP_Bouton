@@ -4,10 +4,12 @@
   ###DESCRIPTION
     Permet de lire un bouton branché sur une broche digitale.
 
+  Par défaut, le bouton sur une broche a un temps de debounce de 5ms et une valeur de compte de 4.
+  Cela signifie qu'il faudra 20 ms au total pour que le bouton soit détecté comme "appuyé" (4 fois VRAI à chaque 5ms de suite).
 */
 
-#define PIN_BOUTON 34 // Le numéro de la broche sur laquelle est lu le bouton
 #include <BoutonPin.h> //Pour utiliser la librairie Bouton
+#define PIN_BOUTON 34 // Le numéro de la broche sur laquelle est lu le bouton
 
 BoutonPin monBouton(PIN_BOUTON); // Initialisation du bouton sur la broche choisi
 // BoutonPin monBouton(PIN_BOUTON,true,true); // ALTERNATIVE : Initialisation du bouton sur la broche choisi, front montant détecté, utilise le mode INPUT_PULLUP

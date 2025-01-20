@@ -1,8 +1,8 @@
 #ifndef Bouton_h
 #define Bouton_h
 
-#define DEFAULT_DEBOUNCE_DELAY 5
-#define DEFAULT_NOMBRE_COMPTES 4
+#define DEFAULT_DEBOUNCE_DELAY 0
+#define DEFAULT_NOMBRE_COMPTES 1
 #define DEFAULT_lONG_PRESS_DELAY 1200
 #define DEFAULT_lONG_PRESS_INTERVAL 200
 
@@ -26,8 +26,11 @@ typedef bool (*BooleanGetter)();
 class Bouton
 {
 public:
-	Bouton(BooleanGetter booleanGetter, unsigned long debounceDelay = DEFAULT_DEBOUNCE_DELAY, uint8_t nbComptes = DEFAULT_NOMBRE_COMPTES, unsigned long longPressDelay = DEFAULT_lONG_PRESS_DELAY, unsigned long longPressInterval = DEFAULT_lONG_PRESS_INTERVAL);
-	Bouton(unsigned long debounceDelay = DEFAULT_DEBOUNCE_DELAY, uint8_t nbComptes = DEFAULT_NOMBRE_COMPTES, unsigned long longPressDelay = DEFAULT_lONG_PRESS_DELAY, unsigned long longPressInterval = DEFAULT_lONG_PRESS_INTERVAL);
+	Bouton(BooleanGetter booleanGetter);
+	#ifndef __AVR__
+	Bouton(bool &variable);
+	#endif
+	Bouton();
 
 	void refresh(bool forceNow = false);
 

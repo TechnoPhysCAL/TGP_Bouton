@@ -5,6 +5,8 @@ BoutonPin::BoutonPin(int address, bool rising, bool pullup) : Bouton()
 	_address = address;
 	_front = rising ? LOW : HIGH;
 	_pullup = pullup;
+	setDebounceDelay(DEBOUNCE_DELAY_PIN);
+	setNbComptes(NOMBRE_COMPTES_PIN);
 
 }
 

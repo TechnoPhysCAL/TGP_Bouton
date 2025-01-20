@@ -1,38 +1,31 @@
 #include "Bouton.h"
 
-Bouton::Bouton(BooleanGetter booleanGetter, unsigned long debounceDelay, uint8_t nbComptes, unsigned long longPressDelay, unsigned long longPressInterval)
+Bouton::Bouton(BooleanGetter booleanGetter):Bouton()
 {
-	_lastEtat = RELACHE;
-	_keyRegister = 0;
-
-	Bouton::setDebounceDelay(debounceDelay);
-	Bouton::setNbComptes(nbComptes);
-	Bouton::setLongPressDelay(longPressDelay);
-	Bouton::setLongPressInterval(longPressInterval);
-
 	_valueGetter = booleanGetter;
-
-	_whenPressed = nullptr;
-	_whenLongPressed = nullptr;
-	_whenReleased = nullptr;
 }
+#ifndef __AVR__
+Bouton::Bouton(bool &variable):Bouton()
+{
+	_valueGetter = [&variable]() -> bool {return variable; };
+}
+#endif
 
-Bouton::Bouton(unsigned long debounceDelay, uint8_t nbComptes, unsigned long longPressDelay, unsigned long longPressInterval)
+Bouton::Bouton()
 {
 	_lastEtat = RELACHE;
 	_keyRegister = 0;
 
-	Bouton::setDebounceDelay(debounceDelay);
-	Bouton::setNbComptes(nbComptes);
-	Bouton::setLongPressDelay(longPressDelay);
-	Bouton::setLongPressInterval(longPressInterval);
+	Bouton::setDebounceDelay(DEFAULT_DEBOUNCE_DELAY);
+	Bouton::setNbComptes(DEFAULT_NOMBRE_COMPTES);
+	Bouton::setLongPressDelay(DEFAULT_lONG_PRESS_DELAY);
+	Bouton::setLongPressInterval(DEFAULT_lONG_PRESS_INTERVAL);
 
 	_valueGetter = nullptr;
 	_whenPressed = nullptr;
 	_whenLongPressed = nullptr;
 	_whenReleased = nullptr;
 }
-
 
 void Bouton::setStateGetter(BooleanGetter func)
 {

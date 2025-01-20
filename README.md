@@ -39,6 +39,7 @@ void loop() {
   }
 }
 ```
+
 ## Constructeurs
 ```cpp
 BoutonPin(int pin)

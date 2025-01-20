@@ -2,6 +2,8 @@
 #define BoutonPin_h
 
 #include "Bouton.h"
+#define DEBOUNCE_DELAY_PIN 5
+#define NOMBRE_COMPTES_PIN 4
 
 class BoutonPin : public Bouton
 {

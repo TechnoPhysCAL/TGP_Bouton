@@ -5,7 +5,7 @@
 
   Permet de configurer le comportement du bouton avec des fonctions lambda.
 
-  IMPORTANT: Certains processeurs ne supportent pas l'utilisation des fonctions lambda.
+  IMPORTANT: Certains microcontrôleurs ne supportent pas l'utilisation des fonctions lambda.
 
 */
 
