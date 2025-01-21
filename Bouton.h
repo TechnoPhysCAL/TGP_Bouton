@@ -56,6 +56,9 @@ public:
 	void setOnPressed(Callback func);
 	void setOnLongPressed(Callback func);
 	void setOnReleased(Callback func);
+	#ifdef __AVR__
+	bool _state;
+	#endif
 
 protected:
 	void forward(bool);

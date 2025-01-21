@@ -15,6 +15,7 @@ Bouton::Bouton()
 {
 	_lastEtat = RELACHE;
 	_keyRegister = 0;
+	_state = false;
 
 	Bouton::setDebounceDelay(DEFAULT_DEBOUNCE_DELAY);
 	Bouton::setNbComptes(DEFAULT_NOMBRE_COMPTES);
@@ -220,7 +221,7 @@ bool Bouton::getNextValue()
 	}
 	else
 	{
-		return false;
+		return _state;
 	}
 }
 void Bouton::doWhenPressed()

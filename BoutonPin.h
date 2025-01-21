@@ -19,5 +19,6 @@ private:
   int _address;
   int _front;
   bool _pullup;
+  bool _state;
 };
 #endif
