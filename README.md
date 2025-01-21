@@ -57,7 +57,7 @@ void loop() {
 ```cpp
 Bouton(bool& variable)
 Bouton(bool (*booleanGetter)())
-Bouton([]()->bool)
+Bouton([]()->bool{return false;})
 ```
 Le constructeur de la classe `Bouton` permet de créer un bouton avec une fonction personnalisée (fonction sans argument qui retourne un booléen) afin d'obtenir l'état du bouton. La fonction peut être donnée en référence, ou être une fonction lambda.
 On peut aussi fournir simplement une variable booléenne par référence.
