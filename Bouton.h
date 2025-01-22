@@ -27,9 +27,7 @@ class Bouton
 {
 public:
 	Bouton(BooleanGetter booleanGetter);
-	#ifndef __AVR__
 	Bouton(bool &variable);
-	#endif
 	Bouton();
 
 	void refresh(bool forceNow = false);
@@ -56,14 +54,10 @@ public:
 	void setOnPressed(Callback func);
 	void setOnLongPressed(Callback func);
 	void setOnReleased(Callback func);
-	#ifdef __AVR__
-	bool _state;
-	#endif
 
 protected:
 	void forward(bool);
 	int changeEtat(unsigned long cur_time);
-	
 	virtual bool getNextValue();
 
 
@@ -89,6 +83,9 @@ private:
 	void doWhenPressed();
 	void doWhenLongPressed();
 	void doWhenReleased();
+
+	bool* _boolRef = nullptr;
+
 };
 
 #endif

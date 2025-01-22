@@ -1,21 +1,19 @@
 #include "Bouton.h"
 
-Bouton::Bouton(BooleanGetter booleanGetter):Bouton()
+Bouton::Bouton(BooleanGetter booleanGetter) : Bouton()
 {
 	_valueGetter = booleanGetter;
 }
-#ifndef __AVR__
-Bouton::Bouton(bool &variable):Bouton()
+
+Bouton::Bouton(bool &variable) : Bouton()
 {
-	_valueGetter = [&variable]() -> bool {return variable; };
+	_boolRef = &variable;
 }
-#endif
 
 Bouton::Bouton()
 {
 	_lastEtat = RELACHE;
 	_keyRegister = 0;
-	_state = false;
 
 	Bouton::setDebounceDelay(DEFAULT_DEBOUNCE_DELAY);
 	Bouton::setNbComptes(DEFAULT_NOMBRE_COMPTES);
@@ -26,6 +24,7 @@ Bouton::Bouton()
 	_whenPressed = nullptr;
 	_whenLongPressed = nullptr;
 	_whenReleased = nullptr;
+	_boolRef = nullptr;
 }
 
 void Bouton::setStateGetter(BooleanGetter func)
@@ -219,9 +218,13 @@ bool Bouton::getNextValue()
 	{
 		return _valueGetter();
 	}
+	else if (_boolRef != nullptr)
+	{
+		return *_boolRef;
+	}
 	else
 	{
-		return _state;
+		return false;
 	}
 }
 void Bouton::doWhenPressed()

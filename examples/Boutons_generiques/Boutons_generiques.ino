@@ -14,10 +14,8 @@
 Bouton boutonA(&lireEtatBoutonA);  
 
 bool etatB = false;
-#ifndef __AVR__
 // Initialisation du bouton générique avec une variable booléenne en référence (non disponible pour certains microcontrôleurs)
 Bouton boutonB(etatB);  
-#endif
 
  // Initialisation du bouton générique avec une fonction lambda qui simule le bouton C (non disponible pour certains microcontrôleurs)
 Bouton boutonC([](){return millis()%4000<2000;}); 
@@ -43,7 +41,6 @@ void loop() {
     Serial.println("Le bouton A a été relâché.");
   }
 
-#ifndef __AVR__
   boutonB.refresh();
 
   if (boutonB.isPressed()) {  // condition VRAIE lorsque le bouton vient d'être appuyé.
@@ -56,7 +53,6 @@ void loop() {
   {
     Serial.println("Le bouton B a été relâché.");
   }
-#endif
 
   boutonC.refresh();
 
