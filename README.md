@@ -4,6 +4,9 @@ Permet la création de boutons. Permet de détecter si le bouton a été appuyé
 
 ## Notes de version
 
+### 2.0.2 : 
+
+ - Uniformisation des typedef pour BooleanGetter et Callback.
 ### 2.0.0 : 
  - Refonte pour que Bouton.h gère les comportements virtuels et que BoutonPin gère un bouton matériel simple.
  - Constructeurs simplifiés, les paramètres temporels sont relégués dans les méthodes correspondantes;
