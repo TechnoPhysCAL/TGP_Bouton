@@ -15,13 +15,13 @@
 
 #include "Arduino.h"
 
-#ifndef __AVR__
-typedef std::function<void(void)> Callback;
-typedef std::function<bool(void)> BooleanGetter;
-#else
+//#ifdef __ESP__
+//typedef std::function<void(void)> Callback;
+//typedef std::function<bool(void)> BooleanGetter;
+//#else
 typedef void (*Callback)();
 typedef bool (*BooleanGetter)();
-#endif
+//#endif
 
 class Bouton
 {
